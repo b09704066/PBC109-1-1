@@ -20,12 +20,22 @@ def st_click():  # 按下按鍵的反應
     # 使用函數外的變數
     global img_lbl1
     global pic2
+    # 更換圖片(pic2)
     img_lbl1.destroy()   # 刪除 img_lbl 的內容
     img_lbl2 = tk.Label(top_frame, image = pic2)
     img_lbl1 = img_lbl2  # 用 img_lbl2 取代 img_lbl1
     img_lbl1.pack()
+    # 更換按鍵(選擇性別)
+    st_btn.destroy()
+    m_btn = tk.Button(bottom_frame, width = 11, text = '生理男', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200')
+    f_btn = tk.Button(bottom_frame, width = 11, text = '生理女', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200')
+    oth_btn = tk.Button(bottom_frame, width = 11, text='其他', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200')
+    m_btn.pack(side = tk.LEFT, padx = 3)
+    f_btn.pack(side = tk.LEFT, padx = 3)
+    oth_btn.pack(side = tk.LEFT, padx = 3)
 
-st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#FFE1EC', command = st_click)
+
+st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', command = st_click)
 st_btn.pack()
 
 
