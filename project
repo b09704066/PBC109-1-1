@@ -1,5 +1,37 @@
-# user interface codes
-# tkinter
-
 import tkinter as tk
-import tkinter.font as tkfont
+
+# base
+window = tk.Tk()
+window.resizable(0,0)
+top_frame = tk.Frame(window)
+top_frame.pack(side = tk.TOP)
+bottom_frame = tk.Frame(window)
+bottom_frame.pack(side = tk.BOTTOM)
+
+# p.1-2
+pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
+img_lbl1 = tk.Label(top_frame, image = pic1)
+img_lbl1.pack(side = tk.LEFT)
+
+pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2性別.png')
+
+def st_click():
+    global img_lbl1
+    global pic2
+    img_lbl1.destroy()
+    img_lbl2 = tk.Label(top_frame, image = pic2)
+    img_lbl2.pack()
+
+st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#FFE1EC', command = st_click)
+st_btn.pack()
+
+
+
+
+
+
+
+
+
+
+window.mainloop()
