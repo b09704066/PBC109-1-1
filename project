@@ -1,26 +1,29 @@
 import tkinter as tk
 
 # base
-window = tk.Tk()
-window.resizable(0,0)
-top_frame = tk.Frame(window)
-top_frame.pack(side = tk.TOP)
-bottom_frame = tk.Frame(window)
-bottom_frame.pack(side = tk.BOTTOM)
+window = tk.Tk()                     # 使用架構
+window.resizable(0,0)                # 視窗不可調整大小
+top_frame = tk.Frame(window)         # 上層框架
+top_frame.pack(side = tk.TOP)        # 放置位置
+bottom_frame = tk.Frame(window)      # 下層框架
+bottom_frame.pack(side = tk.BOTTOM)  # 放置位置
 
 # p.1-2
-pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
+# 以 label 放置圖片
+pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')  # 第一頁的圖片
 img_lbl1 = tk.Label(top_frame, image = pic1)
-img_lbl1.pack(side = tk.LEFT)
+img_lbl1.pack()
 
-pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2性別.png')
+pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2性別.png')   # 第二頁的圖片
 
-def st_click():
+def st_click():  # 按下按鍵的反應
+    # 使用函數外的變數
     global img_lbl1
     global pic2
-    img_lbl1.destroy()
+    img_lbl1.destroy()   # 刪除 img_lbl 的內容
     img_lbl2 = tk.Label(top_frame, image = pic2)
-    img_lbl2.pack()
+    img_lbl1 = img_lbl2  # 用 img_lbl2 取代 img_lbl1
+    img_lbl1.pack()
 
 st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#FFE1EC', command = st_click)
 st_btn.pack()
