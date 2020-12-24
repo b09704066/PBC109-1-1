@@ -1,5 +1,6 @@
 import tkinter as tk
 
+# 測試
 # base
 window = tk.Tk()                     # 使用架構
 window.resizable(0,0)                # 視窗不可調整大小
