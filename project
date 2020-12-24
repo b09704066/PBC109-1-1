@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.filedialog as fd
 
 # 測試
 # base
@@ -11,11 +12,21 @@ bottom_frame.pack(side = tk.BOTTOM)  # 放置位置
 
 # p.1-2
 # 以 label 放置圖片
-pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')  # 第一頁的圖片
+pic1 = tk.PhotoImage(file = '/Users/nina/Downloads/p1完整.png')  # 第一頁的圖片
 img_lbl1 = tk.Label(top_frame, image = pic1)
 img_lbl1.pack()
 
-pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2性別.png')   # 第二頁的圖片
+pic2 = tk.PhotoImage(file='/Users/nina/Downloads/工作區域 2.png')   # 第二頁的圖片
+
+# def m_btn_click():  # 按下「生理男」按鍵反應
+    
+def f_btn_click():
+    global f_btn
+    f_btn.config(bg = '#00FFFF')
+
+def file_up_click():
+    file_path = fd.askopenfilename()
+
 
 def st_click():  # 按下按鍵的反應
     # 使用函數外的變數
@@ -28,12 +39,12 @@ def st_click():  # 按下按鍵的反應
     img_lbl1.pack()
     # 更換按鍵(選擇性別)
     st_btn.destroy()
-    m_btn = tk.Button(bottom_frame, width = 11, text = '生理男', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200')
-    f_btn = tk.Button(bottom_frame, width = 11, text = '生理女', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200')
-    oth_btn = tk.Button(bottom_frame, width = 11, text='其他', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200')
-    m_btn.pack(side = tk.LEFT, padx = 3)
-    f_btn.pack(side = tk.LEFT, padx = 3)
-    oth_btn.pack(side = tk.LEFT, padx = 3)
+    m_btn = tk.Button(top_frame, width = 10, text = '生理男', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', activebackground = '#FFD200')
+    f_btn = tk.Button(top_frame, width = 10, text = '生理女', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', activebackground = '#FFD200', command = f_btn_click)
+    file_up_btn = tk.Button(top_frame, width = 10, text = '選擇檔案', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200',command= file_up_click)
+    m_btn.place(x=415, y=123) 
+    f_btn.place(x=415, y=220)
+    file_up_btn.place(x=415, y=515)
 
 
 st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', command = st_click)
