@@ -79,10 +79,12 @@ class Page3(tk.Frame):
                                 fg = '#FFD200', command = file_up_click)
         conti_btn = tk.Button(self,width = 16, text = '繼續', font = ('HanyiSentyTang', 40), bg = '#A60E27',
                                 fg = '#FFD200', command = lambda: master.switch_page(Page4))
+        g_bk_btn = tk.Button(self, width=10, text='返回', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                      activebackground='#FFD200', command = lambda: master.go_back(Page2))
         img_lbl.pack(side=tk.TOP)
         file_up_btn.pack(side=tk.LEFT)
         conti_btn.pack(side=tk.RIGHT)
-
+        g_bk_btn.place(x=0, y=0)
 
 class Page4(tk.Frame):
     def __init__(self, master):
@@ -90,7 +92,10 @@ class Page4(tk.Frame):
         global pic4
         pic4 = tk.PhotoImage(file = '/Users/nina/Downloads/p4,8評估.png')
         img_lbl = tk.Label(self, image = pic4)
+        g_bk_btn = tk.Button(self, width=10, text='返回', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                      activebackground='#FFD200', command = lambda: master.go_back(Page3))
         img_lbl.pack(side=tk.TOP)
+        g_bk_btn.place(x=0, y=0)
 
 
 
