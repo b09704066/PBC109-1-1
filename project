@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.filedialog as fd
 
-# 使用之圖片
+# 使用圖片
 '''
 pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
 pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2性別.png')
@@ -30,14 +30,17 @@ class Main(tk.Tk):
 
 def file_up_click():
     file_path = fd.askopenfilename()
+    with open(file = file_path) as f:
+        read = f.read()
+    print(read)  # 應該要return文字，但commad無法直接return
 
-
+            
 # 一個頁面一個class
 class Page1(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic1
-        pic1 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p1完整.png')
+        pic1 = tk.PhotoImage(file='/Users/nina/Downloads/p1封面.png')
         img_lbl = tk.Label(self, image = pic1)
         start_btn = tk.Button(self, width = 34, text = '開始評測', font = ('HanyiSentyTang', 40), bg = '#FFE1EC', command = lambda: master.switch_page(Page2))
         img_lbl.pack(side = tk.TOP)
@@ -47,7 +50,7 @@ class Page2(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic2
-        pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2性別.png')
+        pic2 = tk.PhotoImage(file = '/Users/nina/Downloads/p2,3性別:上傳文檔.png')
         img_lbl = tk.Label(self, image = pic2)
         m_btn = tk.Button(self, width=10, text='生理男', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
                       activebackground='#FFD200', command = lambda: master.switch_page(Page3))
@@ -61,12 +64,26 @@ class Page3(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic3
-        pic3 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p3文檔上傳.png')
+        pic3 = tk.PhotoImage(file='/Users/nina/Downloads/p2,3性別:上傳文檔.png')
         img_lbl = tk.Label(self, image = pic3)
-        file_up_btn = tk.Button(self, width = 20, text = '上傳聊天文檔', font = ('HanyiSentyTang', 40), bg = '#A60E27',
+        file_up_btn = tk.Button(self, width = 16, text = '上傳聊天文檔', font = ('HanyiSentyTang', 40), bg = '#A60E27',
                                 fg = '#FFD200', command = file_up_click)
-        img_lbl.pack(side = tk.TOP)
-        file_up_btn.pack(side = tk.BOTTOM)
+        conti_btn = tk.Button(self,width = 16, text = '繼續', font = ('HanyiSentyTang', 40), bg = '#A60E27',
+                                fg = '#FFD200', command = lambda: master.switch_page(Page4))
+        img_lbl.pack(side=tk.TOP)
+        file_up_btn.pack(side=tk.LEFT)
+        conti_btn.pack(side=tk.RIGHT)
+
+
+class Page4(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic4
+        pic4 = tk.PhotoImage(file = '/Users/nina/Downloads/p4,8評估.png')
+        img_lbl = tk.Label(self, image = pic4)
+        img_lbl.pack(side=tk.TOP)
+
+
 
 
 
