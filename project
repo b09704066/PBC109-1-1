@@ -1,62 +1,76 @@
 import tkinter as tk
 import tkinter.filedialog as fd
 
-# 測試
-# base
-window = tk.Tk()                     # 使用架構
-window.resizable(0,0)                # 視窗不可調整大小
-top_frame = tk.Frame(window)         # 上層框架
-top_frame.pack(side = tk.TOP)        # 放置位置
-bottom_frame = tk.Frame(window)      # 下層框架
-bottom_frame.pack(side = tk.BOTTOM)  # 放置位置
+# 使用圖片
+'''
+pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
+pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2性別.png')
+pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3文檔上傳.png')
+pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8 評估.png')
+pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5 曖昧指數.png')
+pic6 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p6 第二階段bridge.png')
+pic7 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p7 姻緣簿.png')
+pic8 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8 評估.png')
+pic9 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p9 真愛渣男分數.png')
+pic10 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p10 行動建議.png')
+'''
 
-# p.1-2
-# 以 label 放置圖片
-pic1 = tk.PhotoImage(file = '/Users/nina/Downloads/p1完整.png')  # 第一頁的圖片
-img_lbl1 = tk.Label(top_frame, image = pic1)
-img_lbl1.pack()
+class Main(tk.Tk):
+    def __init__(self):
+        tk.Tk.__init__(self)
+        self.init_frame = None
+        self.switch_page(Page1)
 
-pic2 = tk.PhotoImage(file='/Users/nina/Downloads/工作區域 2.png')   # 第二頁的圖片
-
-# def m_btn_click():  # 按下「生理男」按鍵反應
-    
-def f_btn_click():
-    global f_btn
-    f_btn.config(bg = '#00FFFF')
+    def switch_page(self, frame_cls):
+        new_frame = frame_cls(self)
+        if self.init_frame is not None:
+            self.init_frame.destroy()
+        self.init_frame = new_frame
+        self.init_frame.pack()
 
 def file_up_click():
     file_path = fd.askopenfilename()
 
 
-def st_click():  # 按下按鍵的反應
-    # 使用函數外的變數
-    global img_lbl1
-    global pic2
-    # 更換圖片(pic2)
-    img_lbl1.destroy()   # 刪除 img_lbl 的內容
-    img_lbl2 = tk.Label(top_frame, image = pic2)
-    img_lbl1 = img_lbl2  # 用 img_lbl2 取代 img_lbl1
-    img_lbl1.pack()
-    # 更換按鍵(選擇性別)
-    st_btn.destroy()
-    m_btn = tk.Button(top_frame, width = 10, text = '生理男', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', activebackground = '#FFD200')
-    f_btn = tk.Button(top_frame, width = 10, text = '生理女', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', activebackground = '#FFD200', command = f_btn_click)
-    file_up_btn = tk.Button(top_frame, width = 10, text = '選擇檔案', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200',command= file_up_click)
-    m_btn.place(x=415, y=123) 
-    f_btn.place(x=415, y=220)
-    file_up_btn.place(x=415, y=515)
+# 一個頁面一個class
+class Page1(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic1
+        pic1 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p1完整.png')
+        img_lbl = tk.Label(self, image = pic1)
+        start_btn = tk.Button(self, width = 34, text = '開始評測', font = ('HanyiSentyTang', 40), bg = '#FFE1EC', command = lambda: master.switch_page(Page2))
+        img_lbl.pack(side = tk.TOP)
+        start_btn.pack(side = tk.BOTTOM)
+
+class Page2(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic2
+        pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2性別.png')
+        img_lbl = tk.Label(self, image = pic2)
+        m_btn = tk.Button(self, width=10, text='生理男', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                      activebackground='#FFD200', command = lambda: master.switch_page(Page3))
+        f_btn = tk.Button(self, width=10, text='生理女', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                      activebackground='#FFD200', command = lambda: master.switch_page(Page3))
+        img_lbl.pack(side = tk.TOP)
+        m_btn.place(x=415, y=123)
+        f_btn.place(x=415, y=220)
+
+class Page3(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic3
+        pic3 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p3文檔上傳.png')
+        img_lbl = tk.Label(self, image = pic3)
+        file_up_btn = tk.Button(self, width = 20, text = '上傳聊天文檔', font = ('HanyiSentyTang', 40), bg = '#A60E27',
+                                fg = '#FFD200', command = file_up_click)
+        img_lbl.pack(side = tk.TOP)
+        file_up_btn.pack(side = tk.BOTTOM)
 
 
-st_btn = tk.Button(bottom_frame, width = 34, text = '開始評測!', font = ('HanyiSentyTang', 40), bg = '#A60E27', fg = '#FFD200', command = st_click)
-st_btn.pack()
 
 
-
-
-
-
-
-
-
-
-window.mainloop()
+win = Main()
+win.resizable(0, 0)
+win.mainloop()
