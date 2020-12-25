@@ -28,6 +28,12 @@ class Main(tk.Tk):
         self.init_frame = new_frame
         self.init_frame.pack()
 
+    def go_back(self, frame_cls):
+        new_frame = frame_cls(self)
+        self.init_frame.destroy()
+        self.init_frame = new_frame
+        self.init_frame.pack()
+
 def file_up_click():
     file_path = fd.askopenfilename()
     with open(file = file_path) as f:
@@ -56,9 +62,12 @@ class Page2(tk.Frame):
                       activebackground='#FFD200', command = lambda: master.switch_page(Page3))
         f_btn = tk.Button(self, width=10, text='生理女', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
                       activebackground='#FFD200', command = lambda: master.switch_page(Page3))
+        g_bk_btn = tk.Button(self, width=10, text='返回', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                      activebackground='#FFD200', command = lambda: master.go_back(Page1))
         img_lbl.pack(side = tk.TOP)
         m_btn.place(x=415, y=123)
         f_btn.place(x=415, y=220)
+        g_bk_btn.place(x=0, y=0)
 
 class Page3(tk.Frame):
     def __init__(self, master):
