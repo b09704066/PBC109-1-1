@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.filedialog as fd
+from tkinter import ttk
 
 # 使用圖片
 '''
@@ -29,19 +30,22 @@ class Main(tk.Tk):
         self.init_frame = new_frame
         self.init_frame.pack()
 
-    def wait_switch_page(self, frame_cls):  # 延遲跳轉頁面
-        new_frame = frame_cls(self)
-        if self.init_frame is not None:
-            self.init_frame.after(2000, self.init_frame.destroy())
-        self.init_frame = new_frame
-        self.init_frame.pack()
 
-
+# 檔案上傳之function
 def file_up_click():
     file_path = fd.askopenfilename()
     with open(file=file_path, mode='r', encoding='utf-8') as f:
         read = f.read()
         # 應該要return文字，但command無法直接return
+
+
+# 進度條更新進度之function
+def progress(bar):
+    cur_val = 50
+    for i in range(5):
+        cur_val += 10
+        bar['value'] = cur_val
+        bar.update()
 
 
 # 一個頁面一個class
@@ -83,7 +87,7 @@ class Page3(tk.Frame):
         img_lbl = tk.Label(self, image=pic3)
         file_up_btn = tk.Button(self, width=16, text='上傳聊天文檔', font=('HanyiSentyTang', 40), bg='#A60E27',
                                 fg='#FFD200', command=file_up_click)
-        conti_btn = tk.Button(self, width=16, text='繼續', font=('HanyiSentyTang', 40), bg='#A60E27',
+        conti_btn = tk.Button(self, width=16, text='確認', font=('HanyiSentyTang', 40), bg='#A60E27',
                               fg='#FFD200', command=lambda: master.switch_page(Page4))
         g_bk_btn = tk.Button(self, width=6, text='返回', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page2))
@@ -99,14 +103,26 @@ class Page4(tk.Frame):
         global pic4
         pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8 評估.png')
         img_lbl = tk.Label(self, image=pic4)
-        result_btn = tk.Button(self, text = '進入結果', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200', command=lambda: master.switch_page(Page5))
         img_lbl.pack(side=tk.TOP)
-        result_btn.pack(side=tk.RIGHT)
-        #result_btn.after(2000, result_btn.pack(side=tk.RIGHT))
+        self.cur_val = 0
+        self.max = 100
 
-    def delay(self):
-        pass
+        # 進度條
+        self.loading = ttk.Progressbar(self, length = 580, mode='determinate', name='loading')
+        self.loading['value'] = 0
+        self.loading['maximum'] = self.max
+        self.load = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 40), bg='#A60E27', fg='#FFD200',
+                         activebackground='#FFD200', command=self.progress)
+        self.loading.pack(side=tk.LEFT)
+        self.load.pack(side=tk.LEFT)
+
+    def progress(self):  # 還不確定怎麼讓進度條跑完自己接下一頁
+        self.cur_val += 10
+        self.loading['value'] = self.cur_val
+        self.loading.update()
+        if self.cur_val < self.max:
+            self.after(10000, self.progress())
+
 
 class Page5(tk.Frame):
     def __init__(self, master):
