@@ -31,6 +31,20 @@ class Main(tk.Tk):
         self.init_frame.pack()
 
 
+class Main2(tk.Tk):
+    def __init__(self):
+        tk.Tk.__init__(self)
+        self.init_frame = None
+        self.switch_page(Page5)
+
+    def switch_page(self, frame_cls):
+        new_frame = frame_cls(self)
+        if self.init_frame is not None:
+            self.init_frame.destroy()
+        self.init_frame = new_frame
+        self.init_frame.pack()
+
+
 # 檔案上傳之function
 def file_up_click():
     file_path = fd.askopenfilename()
@@ -104,7 +118,7 @@ class Page4(tk.Frame):
         self.loading['maximum'] = self.max
         self.load_btn = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                          activebackground='#FFD200', command=self.progress)
-        g_bk_btn = tk.Button(self, width=6, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page3))
         self.res_btn = tk.Button(self, text='結果', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                          activebackground='#FFD200', command=lambda: master.switch_page(Page5))
@@ -114,14 +128,16 @@ class Page4(tk.Frame):
 
     def progress(self):  # 還不確定怎麼讓進度條跑完自己接下一頁
         if self.cur_val < self.max:
-            self.cur_val += 10
+            self.cur_val += 0.5
             self.loading['value'] = self.cur_val
             self.loading.update()
         if self.cur_val < self.max:
-            self.after(100000, self.progress())
+            self.after(10000, self.progress())
         else:
-            self.res_btn.pack(side=tk.RIGHT)
-            self.load_btn.destroy()
+            self.master.destroy()
+            new = Main2()
+            new.mainloop()
+
 
 class Page5(tk.Frame):
     def __init__(self, master):
