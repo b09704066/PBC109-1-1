@@ -84,7 +84,7 @@ class Page2(tk.Frame):
         g_bk_btn.place(x=0, y=0, height=60)
 
 
-class Page3(tk.Frame):
+class Page3(tk.Frame):  # 試試看把上船的檔案名稱放在圖片空白處
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic3
@@ -165,11 +165,18 @@ class Page6(tk.Frame):
         cont_btn = tk.Button(self, text='繼續', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page7))
         leave_btn = tk.Button(self, text='離開', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200')  # 要直接跳出去嗎
+                             activebackground='#FFD200', command=self.leave)  # 要直接跳出去嗎
         img_lbl.pack()
         g_bk_btn.place(x=0, y=0, height=60)
         leave_btn.place(x=0, y=550, height=60)
         cont_btn.place(x=690, y=550, height=60)
+
+    def leave(self):
+        self.master.destroy()
+        new = tk.Tk()
+        new.resizable(0,0)
+        txt_lbl = tk.Label(new, text='祝你情場順利!', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200')
+        txt_lbl.pack()
 
 
 class Page7(tk.Frame):  # 使用文字框
