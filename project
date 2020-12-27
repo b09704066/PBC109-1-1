@@ -6,10 +6,10 @@ from tkinter import ttk
 '''
 pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
 pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2.png')
-pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3文檔上傳.png')
+pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
 pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4.png')
-pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5 曖昧指數.png')
-pic6 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p6 第二階段bridge.png')
+pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
+pic6 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p6.png')
 pic7 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p7 姻緣簿.png')
 pic8 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8 評估.png')
 pic9 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p9 真愛渣男分數.png')
@@ -88,7 +88,7 @@ class Page3(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic3
-        pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3文檔上傳.png')
+        pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
         img_lbl = tk.Label(self, image=pic3)
         file_up_btn = tk.Button(self, text='上傳聊天文檔', font=('HanyiSentyTang', 35), bg='#A60E27',
                                 fg='#FFD200', command=file_up_click)
@@ -139,16 +139,47 @@ class Page4(tk.Frame):
             new.mainloop()
 
 
-class Page5(tk.Frame):
+class Page5(tk.Frame):  # 放入曖昧分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic5
-        pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5 曖昧指數.png')
+        pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
         img_lbl = tk.Label(self, image=pic5)
-        g_bk_btn = tk.Button(self, width=6, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page3))
+        cont_btn = tk.Button(self, text='繼續', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page6))
         img_lbl.pack()
         g_bk_btn.place(x=0, y=0, height=60)
+        cont_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
+
+
+class Page6(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic6
+        pic6 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p6.png')
+        img_lbl = tk.Label(self, image=pic6)
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page5))
+        cont_btn = tk.Button(self, text='繼續', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page7))
+        leave_btn = tk.Button(self, text='離開', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200')  # 要直接跳出去嗎
+        img_lbl.pack()
+        g_bk_btn.place(x=0, y=0, height=60)
+        leave_btn.place(x=0, y=550, height=60)
+        cont_btn.place(x=690, y=550, height=60)
+
+
+class Page7(tk.Frame):  # 使用文字框
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic7
+        pic7 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p7 姻緣簿.png')
+        img_lbl = tk.Label(self, image=pic7)
+        img_lbl.pack(side=tk.TOP)
+
 
 
 win = Main()
