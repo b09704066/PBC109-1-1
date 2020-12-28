@@ -2,20 +2,6 @@ import tkinter as tk
 import tkinter.filedialog as fd
 from tkinter import ttk
 
-# 使用圖片
-'''
-pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
-pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2.png')
-pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
-pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4.png')
-pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
-pic6 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p6.png')
-pic7 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p7.png')
-pic8 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8.png')
-pic9 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p9.png')
-pic10 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p10.png')
-'''
-
 
 class Main(tk.Tk):
     def __init__(self):
@@ -68,8 +54,25 @@ class Page1(tk.Frame):
         img_lbl = tk.Label(self, image=pic1)
         start_btn = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                           activebackground='#FFD200', command=lambda: master.switch_page(Page2))
+        reminder_btn = tk.Button(self, text='!注意事項!', font=('HanyiSentyTang', 35), bg='#FFD200', fg='#A60E27',
+                          activebackground='#FFD200', command=self.pop)
+
         img_lbl.pack(side=tk.TOP)
-        start_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
+        start_btn.place(x=610, y=543, height=60)
+        reminder_btn.place(x=0, y=543, height=60)
+
+    def pop(self):
+        # 小注意事項!
+        reminder = tk.Tk()
+        reminder.resizable(0, 0)
+        txt_lbl = tk.Label(reminder, text='1.本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
+                                          '\n2.因技術限制，在分析聊天紀錄的部分，本評測儀目前僅供使用者上傳LINE的聊天紀錄文檔，若有不便敬請海涵。'
+                                          '\n3.使用者所上傳的聊天文檔絕對保密，絕對不會被團隊用來作其他用途，成員也不會將其開啟。'
+                                          '\n4.本測驗因資料蒐集時間有限，資料可能不甚全面及完整，因此所得結果和相關建議僅供使用者參考，本團隊不負任何責任。'
+                                          '\n5.祝大家成功找到真愛，斷開渣渣！', justify=tk.LEFT, font=('HanyiSentyTang', 16),
+                           bg='white', fg='black')
+        txt_lbl.pack()
+        reminder.mainloop()
 
 
 class Page2(tk.Frame):
@@ -115,8 +118,8 @@ class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
         pr2 = tk.Label(self, text='的聊天', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
 
         img_lbl.pack(side=tk.TOP)
-        file_up_btn.place(x=0, y=550, height=60)
-        cont_btn.place(x=690, y=550, height=60)
+        file_up_btn.place(x=0, y=543, height=60)
+        cont_btn.place(x=690, y=543, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
         pr1.place(x=130, y=120, height=40)
         pr2.place(x=88, y=225, height=40)
@@ -187,7 +190,7 @@ class Page5(tk.Frame):  # 放入曖昧分數
                              activebackground='#FFD200', command=lambda: master.switch_page(Page6))
         img_lbl.pack()
         g_bk_btn.place(x=0, y=0, height=60)
-        cont_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
+        cont_btn.place(x=690, y=543, height=60)
 
 
 class Page6(tk.Frame):
@@ -204,8 +207,8 @@ class Page6(tk.Frame):
                              activebackground='#FFD200', command=self.leave)  # 要直接跳出去嗎
         img_lbl.pack()
         g_bk_btn.place(x=0, y=0, height=60)
-        leave_btn.place(x=0, y=550, height=60)
-        cont_btn.place(x=690, y=550, height=60)
+        leave_btn.place(x=0, y=543, height=60)
+        cont_btn.place(x=690, y=543, height=60)
 
     def leave(self):
         self.master.destroy()
@@ -227,7 +230,7 @@ class Page7(tk.Frame):  # 使用文字框
                              activebackground='#FFD200', command=lambda: master.switch_page(Page8))
         img_lbl.pack(side=tk.TOP)
         g_bk_btn.place(x=0, y=0, height=60)
-        cont_btn.place(x=690, y=550, height=60)
+        cont_btn.place(x=690, y=543, height=60)
 
 
 class Page8(tk.Frame):
