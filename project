@@ -10,7 +10,7 @@ pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
 pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4.png')
 pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
 pic6 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p6.png')
-pic7 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p7 姻緣簿.png')
+pic7 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p7.png')
 pic8 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&p8 評估.png')
 pic9 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p9 真愛渣男分數.png')
 pic10 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p10 行動建議.png')
@@ -45,14 +45,6 @@ class Main2(tk.Tk):
         self.init_frame.pack()
 
 
-# 檔案上傳之function
-def file_up_click():
-    file_path = fd.askopenfilename()
-    with open(file=file_path, mode='r', encoding='utf-8') as f:
-        read = f.read()
-        # 應該要return文字，但command無法直接return
-
-
 # 一個頁面一個class
 class Page1(tk.Frame):
     def __init__(self, master):
@@ -78,28 +70,53 @@ class Page2(tk.Frame):
                           activebackground='#FFD200', command=lambda: master.switch_page(Page3))
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page1))
+        name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='#A60E27', fg='#FFD200')
+        name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30))
+
         img_lbl.pack(side=tk.TOP)
-        m_btn.place(x=385, y=325, height=60)
-        f_btn.place(x=600, y=325, height=60)
+        m_btn.place(x=385, y=270, height=60)
+        f_btn.place(x=600, y=270, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
+        name_lbl.place(x=387, y=345, height=50)
+        name_ent.place(x=548, y=345, height=50)
 
-
-class Page3(tk.Frame):  # 試試看把上船的檔案名稱放在圖片空白處
+class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic3
         pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
         img_lbl = tk.Label(self, image=pic3)
         file_up_btn = tk.Button(self, text='上傳聊天文檔', font=('HanyiSentyTang', 35), bg='#A60E27',
-                                fg='#FFD200', command=file_up_click)
-        cont_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 35), bg='#A60E27',
-                              fg='#FFD200', command=lambda: master.switch_page(Page4))
+                                fg='#FFD200', activebackground='#FFD200', command=self.file_up_click)
+        cont_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page4))
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page2))
+        pr1 = tk.Label(self, text='與', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
+        pr2 = tk.Label(self, text='的聊天', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
+
         img_lbl.pack(side=tk.TOP)
         file_up_btn.place(x=0, y=550, height=60)
         cont_btn.place(x=690, y=550, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
+        pr1.place(x=130, y=120, height=40)
+        pr2.place(x=88, y=225, height=40)
+        # 是誰渣???搞錯名字的你最渣!
+
+    def file_up_click(self):
+        file_path = fd.askopenfilename()
+
+        # 印出的部分
+        path = file_path
+        start = path.index('與')
+        end = path.index('的聊天')
+        path = path[start+1:end]
+        file_lbl = tk.Label(self, text=str(path), font=('HanyiSentyTang', 22), bg='white')
+        file_lbl.place(x=60, y=170)
+
+        with open(file=file_path, mode='r', encoding='utf-8') as f:
+            read = f.read()
+        # 應該要return文字，但command無法直接return
 
 
 class Page4(tk.Frame):
@@ -122,7 +139,7 @@ class Page4(tk.Frame):
                              activebackground='#FFD200', command=lambda: master.switch_page(Page3))
         self.res_btn = tk.Button(self, text='結果', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                          activebackground='#FFD200', command=lambda: master.switch_page(Page5))
-        self.loading.place(x=120, y=560)
+        self.loading.place(x=120, y=565)
         self.load_btn.place(x=310, y=500, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
 
@@ -183,10 +200,12 @@ class Page7(tk.Frame):  # 使用文字框
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic7
-        pic7 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p7 姻緣簿.png')
+        pic7 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p7.png')
         img_lbl = tk.Label(self, image=pic7)
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page6))
         img_lbl.pack(side=tk.TOP)
-
+        g_bk_btn.place(x=0, y=0, height=60)
 
 
 win = Main()
