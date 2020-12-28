@@ -127,7 +127,6 @@ class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
 
     def file_up_click(self):
         file_path = fd.askopenfilename()
-
         # 印出的部分
         path = file_path
         start = path.index('與')
@@ -135,10 +134,10 @@ class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
         path = path[start+1:end]
         file_lbl = tk.Label(self, text=str(path), font=('HanyiSentyTang', 22), bg='white')
         file_lbl.place(x=60, y=170)
-
         # 將運算以function形式放進來?
         with open(file=file_path, mode='r', encoding='utf-8') as f:
-            read = f.read()
+            #read = f.read()
+            pass
 
 
 class Page4(tk.Frame):
@@ -231,7 +230,32 @@ class Page7(tk.Frame):  # 使用文字框
         img_lbl.pack(side=tk.TOP)
         g_bk_btn.place(x=0, y=0, height=60)
         cont_btn.place(x=690, y=543, height=60)
+        self.create_entry()
 
+    def create_entry(self):
+        Q1_lbl = tk.Label(self, text='認識時間', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        Q2_lbl = tk.Label(self, text='認識原因', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        Q3_lbl = tk.Label(self, text='聊天時長', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        Q4_lbl = tk.Label(self, text='聊天頻率', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        Q5_lbl = tk.Label(self, text='你覺得他\n有多喜歡你!', justify=tk.LEFT, font=('HanyiSentyTang', 20), bg='#FDFFF0', fg='#A60E27')
+
+        Q1_lbl.place(x=330, y=110, height=35)
+        Q2_lbl.place(x=330, y=175, height=35)
+        Q3_lbl.place(x=330, y=243, height=35)
+        Q4_lbl.place(x=330, y=315, height=35)
+        Q5_lbl.place(x=330, y=370, height=55)
+
+        Q1_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+        Q2_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+        Q3_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+        Q4_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+        Q5_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+
+        Q1_ent.place(x=490, y=110, height=35)
+        Q2_ent.place(x=490, y=175, height=35)
+        Q3_ent.place(x=490, y=243, height=35)
+        Q4_ent.place(x=490, y=315, height=35)
+        Q5_ent.place(x=490, y=385, height=35)
 
 class Page8(tk.Frame):
     def __init__(self, master):
