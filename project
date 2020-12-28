@@ -45,8 +45,20 @@ class Main3(tk.Tk):
         self.init_frame.pack()
 
 
+# 計算分數
+def score():
+    # 計算出曖昧分數、渣分數、珍愛分數
+    pass
+
+
+
+
+
+
+
+
 # 一個頁面一個class
-class Page1(tk.Frame):
+class Page1(tk.Frame):  # 起始頁
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic1
@@ -65,7 +77,7 @@ class Page1(tk.Frame):
         # 小注意事項!
         reminder = tk.Tk()
         reminder.resizable(0, 0)
-        txt_lbl = tk.Label(reminder, text='1.本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
+        txt_lbl = tk.Label(reminder, text='1.本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，\n  所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
                                           '\n2.因技術限制，在分析聊天紀錄的部分，本評測儀目前僅供使用者上傳LINE的聊天紀錄文檔，若有不便敬請海涵。'
                                           '\n3.使用者所上傳的聊天文檔絕對保密，絕對不會被團隊用來作其他用途，成員也不會將其開啟。'
                                           '\n4.本測驗因資料蒐集時間有限，資料可能不甚全面及完整，因此所得結果和相關建議僅供使用者參考，本團隊不負任何責任。'
@@ -75,7 +87,7 @@ class Page1(tk.Frame):
         reminder.mainloop()
 
 
-class Page2(tk.Frame):
+class Page2(tk.Frame):  # 性別&姓名
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic2
@@ -87,22 +99,31 @@ class Page2(tk.Frame):
                           activebackground='#FFD200', command=lambda: master.switch_page(Page3))
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page1))
-        name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='#A60E27', fg='#FFD200')
-        self.name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30))
+        name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27')
+        self.name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30), bg='white')
+        conf_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27',
+                             activebackground='#FFD200', command=self.rec_name)
 
         img_lbl.pack(side=tk.TOP)
-        m_btn.place(x=385, y=270, height=60)
-        f_btn.place(x=600, y=270, height=60)
+        m_btn.place(x=385, y=250, height=60)
+        f_btn.place(x=600, y=250, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
-        name_lbl.place(x=387, y=345, height=50)
-        self.name_ent.place(x=548, y=345, height=50)
+        name_lbl.place(x=387, y=325, height=50)
+        self.name_ent.place(x=548, y=325, height=50)
+        conf_btn.place(x=520, y=390, height=50)
 
-    def rec_name(self):  # 要怎麼把名字存下來QQ
+    def rec_name(self):  # 儲存姓名
+        global name
         name = self.name_ent.get()
-        print(name)
+        if self.name_ent['bg'] == 'white':
+            self.name_ent.configure(bg='#FFD200')
+            print(name)
+        else:
+            self.name_ent.configure(bg='white')
+            print(name)
 
 
-class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
+class Page3(tk.Frame):  # 上傳檔案
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic3
@@ -140,14 +161,13 @@ class Page3(tk.Frame):  # 試試看把上傳的檔案名稱放在圖片空白處
             pass
 
 
-class Page4(tk.Frame):
+class Page4(tk.Frame):  # 進度條
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic4
         pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&8.png')
         img_lbl = tk.Label(self, image=pic4)
         img_lbl.pack(side=tk.TOP)
-
         # 進度條
         self.cur_val = 0  # 進度條目前數值
         self.max = 100    # 進度條最大值
@@ -177,7 +197,7 @@ class Page4(tk.Frame):
             new.mainloop()
 
 
-class Page5(tk.Frame):  # 放入曖昧分數
+class Page5(tk.Frame):  # 曖昧分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic5
@@ -192,7 +212,7 @@ class Page5(tk.Frame):  # 放入曖昧分數
         cont_btn.place(x=690, y=543, height=60)
 
 
-class Page6(tk.Frame):
+class Page6(tk.Frame): # 是否繼續測試渣或真愛
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic6
@@ -217,7 +237,7 @@ class Page6(tk.Frame):
         txt_lbl.pack()
 
 
-class Page7(tk.Frame):  # 使用文字框
+class Page7(tk.Frame):  # 姻緣簿
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic7
@@ -245,11 +265,11 @@ class Page7(tk.Frame):  # 使用文字框
         Q4_lbl.place(x=330, y=315, height=35)
         Q5_lbl.place(x=330, y=370, height=55)
 
-        Q1_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
-        Q2_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
-        Q3_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
-        Q4_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
-        Q5_ent = tk.Entry(self, width=6, bg='#FDFFF0', font=('HanyiSentyTang', 30))
+        Q1_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        Q2_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        Q3_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        Q4_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        Q5_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
 
         Q1_ent.place(x=490, y=110, height=35)
         Q2_ent.place(x=490, y=175, height=35)
@@ -257,7 +277,8 @@ class Page7(tk.Frame):  # 使用文字框
         Q4_ent.place(x=490, y=315, height=35)
         Q5_ent.place(x=490, y=385, height=35)
 
-class Page8(tk.Frame):
+
+class Page8(tk.Frame):  # 進度條
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic8
@@ -274,14 +295,12 @@ class Page8(tk.Frame):
         self.load_btn = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                                   activebackground='#FFD200', command=self.progress)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200', command=lambda: master.switch_page(Page3))
-        self.res_btn = tk.Button(self, text='結果', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                                 activebackground='#FFD200', command=lambda: master.switch_page(Page5))
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page7))
         self.loading.place(x=120, y=565)
         self.load_btn.place(x=310, y=500, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
 
-    def progress(self):  # 還不確定怎麼讓進度條跑完自己接下一頁
+    def progress(self):
         if self.cur_val < self.max:
             self.cur_val += 1
             self.loading['value'] = self.cur_val
@@ -294,17 +313,37 @@ class Page8(tk.Frame):
             new.mainloop()
 
 
-class Page9(tk.Frame):
+class Page9(tk.Frame):  # 真愛分數&渣分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic9
         pic9 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p9.png')
         img_lbl = tk.Label(self, image=pic9)
+        cont_btn = tk.Button(self, text='行動小小建議', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page10))
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page8))
         img_lbl.pack(side=tk.TOP)
+        cont_btn.place(x=525, y=543, height=60)
+        g_bk_btn.place(x=0, y=0, height=60)
+
+
+class Page10(tk.Frame):  # 行動建議
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic10
+        pic10 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p10.png')
+        img_lbl = tk.Label(self, image=pic10)
+        end_btn = tk.Button(self, text='結束', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=self.master.destroy)
+        img_lbl.pack(side=tk.TOP)
+        end_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
 
 
 
 
+
+name = str()  # 評測姓名
 win = Main()
 win.resizable(0, 0)
 win.mainloop()
