@@ -47,13 +47,10 @@ class Main3(tk.Tk):
 
 # 計算分數
 def score():
-    # 計算出曖昧分數、渣分數、珍愛分數
-    pass
-
-
-
-
-
+    global amb, fake, real
+    amb = int()   # 曖昧
+    fake = int()  # 渣
+    real = int()  # 真愛
 
 
 
@@ -100,32 +97,41 @@ class Page2(tk.Frame):  # 性別&姓名
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page1))
         name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27')
+        enddate_lbl = tk.Label(self, text='最後聊天日期', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27')
         self.name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30), bg='white')
+        self.enddate_ent = tk.Entry(self, width=8, font=('HanyiSentyTang', 30), bg='white')
         conf_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27',
-                             activebackground='#FFD200', command=self.rec_name)
+                             activebackground='#FFD200', command=self.record)
 
         img_lbl.pack(side=tk.TOP)
         m_btn.place(x=385, y=250, height=60)
         f_btn.place(x=600, y=250, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
-        name_lbl.place(x=387, y=325, height=50)
-        self.name_ent.place(x=548, y=325, height=50)
-        conf_btn.place(x=520, y=390, height=50)
+        name_lbl.place(x=387, y=315, height=45)
+        enddate_lbl.place(x=387, y=370, height=45)
+        self.name_ent.place(x=548, y=315, height=45)
+        self.enddate_ent.place(x=617, y=370, height=45)
+        conf_btn.place(x=520, y=430, height=45)
 
-    def rec_name(self):  # 儲存姓名
+    def record(self):  # 儲存姓名和最後聊天日期
         global name
+        global enddate
         name = self.name_ent.get()
+        enddate = self.enddate_ent.get()
         if self.name_ent['bg'] == 'white':
             self.name_ent.configure(bg='#FFD200')
-            print(name)
         else:
             self.name_ent.configure(bg='white')
-            print(name)
+        if self.enddate_ent['bg'] == 'white':
+            self.enddate_ent.configure(bg='#FFD200')
+        else:
+            self.enddate_ent.configure(bg='white')
 
 
 class Page3(tk.Frame):  # 上傳檔案
     def __init__(self, master):
         tk.Frame.__init__(self, master)
+        self.file_lbl = tk.Label(self)
         global pic3
         pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
         img_lbl = tk.Label(self, image=pic3)
@@ -144,7 +150,6 @@ class Page3(tk.Frame):  # 上傳檔案
         g_bk_btn.place(x=0, y=0, height=60)
         pr1.place(x=130, y=120, height=40)
         pr2.place(x=88, y=225, height=40)
-        # 你確定...剛剛輸入的名字是對的嗎?
 
     def file_up_click(self):
         file_path = fd.askopenfilename()
@@ -152,9 +157,9 @@ class Page3(tk.Frame):  # 上傳檔案
         path = file_path
         start = path.index('與')
         end = path.index('的聊天')
-        path = path[start+1:end]
-        file_lbl = tk.Label(self, text=str(path), font=('HanyiSentyTang', 22), bg='white')
-        file_lbl.place(x=60, y=170)
+        path = path[start + 1:end]
+        self.file_lbl = tk.Label(text=str(path), font=('HanyiSentyTang', 22), bg='white')
+        self.file_lbl.place(x=(110+(3-len(path))*5), y=170)
         # 將運算以function形式放進來?
         with open(file=file_path, mode='r', encoding='utf-8') as f:
             #read = f.read()
@@ -211,6 +216,13 @@ class Page5(tk.Frame):  # 曖昧分數
         g_bk_btn.place(x=0, y=0, height=60)
         cont_btn.place(x=690, y=543, height=60)
 
+        #amg_lbl = tk.Label(self, text='53', font=('HanyiSentyTang', 65), bg='white', fg='#A60E27')
+        amg_lbl = tk.Label(self, text='547', font=('HanyiSentyTang', 65), bg='white', fg='#A60E27')
+        amg_lbl.place(x=200, y=200, height=60)
+        #comment1_lbl = tk.Label(self, text='「你可能真的想太多了，這應該\n 已經不是暈船，是暈航空母艦吧...」', justify=tk.LEFT, font=('HanyiSentyTang', 22), bg='#FFE1EC', fg='#A60E27')
+        #comment1_lbl.place(x=2, y=85, height=62)
+        comment2_lbl = tk.Label(self, text='「你們兩個已經曖昧到一個不行了，\n就差要不要捅破那層紗窗紙的\n一個決定了!」', justify=tk.LEFT, font=('HanyiSentyTang', 22), bg='#FFE1EC', fg='#A60E27')
+        comment2_lbl.place(x=8, y=72, height=95)
 
 class Page6(tk.Frame): # 是否繼續測試渣或真愛
     def __init__(self, master):
@@ -327,6 +339,14 @@ class Page9(tk.Frame):  # 真愛分數&渣分數
         cont_btn.place(x=525, y=543, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
 
+        #fake_lbl = tk.Label(self, text='27', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        #real_lbl = tk.Label(self, text='39', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        fake_lbl = tk.Label(self, text='38', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        real_lbl = tk.Label(self, text='674', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        fake_lbl.place(x=175, y= 140, height=60)
+        real_lbl.place(x=540, y=140, height=60)
+
+
 
 class Page10(tk.Frame):  # 行動建議
     def __init__(self, master):
@@ -339,11 +359,19 @@ class Page10(tk.Frame):  # 行動建議
         img_lbl.pack(side=tk.TOP)
         end_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
 
-
+        #comment1_lbl = tk.Label(self, text='ㄟ抖，你們這可能沒有曖昧，\n探測儀無法測出結果耶><', justify=tk.LEFT,
+                               #font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
+        #comment1_lbl.place(x=130, y=65, height=100)
+        comment2_lbl = tk.Label(self, text='對方也是很認真的面對這段感情耶，\n衝上去早告白一秒就可以早在一起ㄛ！', justify=tk.LEFT,
+                               font=('HanyiSentyTang', 32), bg='white', fg='#A60E27')
+        comment2_lbl.place(x=72, y=78, height=90)
 
 
 
 name = str()  # 評測姓名
+enddate = str()
 win = Main()
 win.resizable(0, 0)
+win.title('真愛評測儀')
+win.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
 win.mainloop()
