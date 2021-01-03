@@ -7,6 +7,8 @@ class Main(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.init_frame = None
+        self.title('真愛評測儀')
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
         self.switch_page(Page1)
 
     def switch_page(self, frame_cls):
@@ -21,6 +23,8 @@ class Main2(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.init_frame = None
+        self.title('真愛評測儀')
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
         self.switch_page(Page5)
 
     def switch_page(self, frame_cls):
@@ -35,6 +39,8 @@ class Main3(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.init_frame = None
+        self.title('真愛評測儀')
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
         self.switch_page(Page9)
 
     def switch_page(self, frame_cls):
@@ -43,15 +49,6 @@ class Main3(tk.Tk):
             self.init_frame.destroy()
         self.init_frame = new_frame
         self.init_frame.pack()
-
-
-# 計算分數
-def score():
-    global amb, fake, real
-    amb = int()   # 曖昧
-    fake = int()  # 渣
-    real = int()  # 真愛
-
 
 
 # 一個頁面一個class
@@ -74,76 +71,34 @@ class Page1(tk.Frame):  # 起始頁
         # 小注意事項!
         reminder = tk.Tk()
         reminder.resizable(0, 0)
-        txt_lbl = tk.Label(reminder, text='1.本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，\n  所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
-                                          '\n2.因技術限制，在分析聊天紀錄的部分，本評測儀目前僅供使用者上傳LINE的聊天紀錄文檔，若有不便敬請海涵。'
-                                          '\n3.使用者所上傳的聊天文檔絕對保密，絕對不會被團隊用來作其他用途，成員也不會將其開啟。'
-                                          '\n4.本測驗因資料蒐集時間有限，資料可能不甚全面及完整，因此所得結果和相關建議僅供使用者參考，本團隊不負任何責任。'
-                                          '\n5.祝大家成功找到真愛，斷開渣渣！', justify=tk.LEFT, font=('HanyiSentyTang', 16),
-                           bg='white', fg='black')
+        reminder.title('注意事項')
+        reminder['bg'] = 'pink'
+        txt_lbl = tk.Label(reminder, text='1. 本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，\n　所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
+                                          '\n2. 因技術限制，在分析聊天紀錄的部分，本評測儀目前僅供使用者上傳LINE的聊天紀錄文檔，\n　若有不便敬請海涵。'
+                                          '\n3. 使用者所上傳的聊天文檔絕對保密，絕對不會被團隊用來作其他用途，成員也不會將其開啟。'
+                                          '\n4. 本測驗因資料蒐集時間有限，資料可能不甚全面及完整，因此所得結果和相關建議僅供使用者\n　參考，本團隊不負任何責任。'
+                                          '\n5. 祝大家成功找到真愛，斷開渣渣！', justify=tk.LEFT, font=('HanyiSentyTang', 18), bg='lavenderblush', fg='palevioletred')
         txt_lbl.pack()
         reminder.mainloop()
 
 
-class Page2(tk.Frame):  # 性別&姓名
+class Page2(tk.Frame):  # 上傳檔案
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic2
-        pic2 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p2.png')
-        img_lbl = tk.Label(self, image=pic2)
-        m_btn = tk.Button(self, text='生理男', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                          activebackground='#FFD200', command=lambda: master.switch_page(Page3))
-        f_btn = tk.Button(self, text='生理女', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                          activebackground='#FFD200', command=lambda: master.switch_page(Page3))
-        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200', command=lambda: master.switch_page(Page1))
-        name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27')
-        enddate_lbl = tk.Label(self, text='最後聊天日期', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27')
-        self.name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30), bg='white')
-        self.enddate_ent = tk.Entry(self, width=8, font=('HanyiSentyTang', 30), bg='white')
-        conf_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 30), bg='#FFD200', fg='#A60E27',
-                             activebackground='#FFD200', command=self.record)
-
-        img_lbl.pack(side=tk.TOP)
-        m_btn.place(x=385, y=250, height=60)
-        f_btn.place(x=600, y=250, height=60)
-        g_bk_btn.place(x=0, y=0, height=60)
-        name_lbl.place(x=387, y=315, height=45)
-        enddate_lbl.place(x=387, y=370, height=45)
-        self.name_ent.place(x=548, y=315, height=45)
-        self.enddate_ent.place(x=617, y=370, height=45)
-        conf_btn.place(x=520, y=430, height=45)
-
-    def record(self):  # 儲存姓名和最後聊天日期
-        global name
-        global enddate
-        name = self.name_ent.get()
-        enddate = self.enddate_ent.get()
-        if self.name_ent['bg'] == 'white':
-            self.name_ent.configure(bg='#FFD200')
-        else:
-            self.name_ent.configure(bg='white')
-        if self.enddate_ent['bg'] == 'white':
-            self.enddate_ent.configure(bg='#FFD200')
-        else:
-            self.enddate_ent.configure(bg='white')
-
-
-class Page3(tk.Frame):  # 上傳檔案
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        self.file_lbl = tk.Label(self)
         global pic3
-        pic3 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p3.png')
+        pic3 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p3.png')
         img_lbl = tk.Label(self, image=pic3)
         file_up_btn = tk.Button(self, text='上傳聊天文檔', font=('HanyiSentyTang', 35), bg='#A60E27',
                                 fg='#FFD200', activebackground='#FFD200', command=self.file_up_click)
         cont_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200', command=lambda: master.switch_page(Page4))
+                             activebackground='#FFD200', command=self.cont)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                             activebackground='#FFD200', command=lambda: master.switch_page(Page2))
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page1))
         pr1 = tk.Label(self, text='與', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
         pr2 = tk.Label(self, text='的聊天', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
+        self.file_lbl = tk.Label(self, text='評測對象',font=('HanyiSentyTang', 24), bg='white')
 
+        self.file_lbl.place(x=103, y=170)
         img_lbl.pack(side=tk.TOP)
         file_up_btn.place(x=0, y=543, height=60)
         cont_btn.place(x=690, y=543, height=60)
@@ -152,18 +107,129 @@ class Page3(tk.Frame):  # 上傳檔案
         pr2.place(x=88, y=225, height=40)
 
     def file_up_click(self):
+        global file_path
         file_path = fd.askopenfilename()
         # 印出的部分
         path = file_path
         start = path.index('與')
         end = path.index('的聊天')
         path = path[start + 1:end]
-        self.file_lbl = tk.Label(text=str(path), font=('HanyiSentyTang', 22), bg='white')
-        self.file_lbl.place(x=(110+(3-len(path))*5), y=170)
-        # 將運算以function形式放進來?
-        with open(file=file_path, mode='r', encoding='utf-8') as f:
-            #read = f.read()
-            pass
+        self.print_path(path)
+
+    def print_path(self, text):
+        if self.file_lbl['text']:
+            self.file_lbl['text'] = text
+            self.file_lbl.update()
+
+    def cont(self):
+        if not file_path:
+            error = tk.Tk()
+            error.title('錯誤><')
+            txt_lbl = tk.Label(error, text='聊天紀錄在哪裡~~~', font=('HanyiSentyTang', 25),
+                               bg='lavenderblush', fg='palevioletred')
+            txt_lbl.pack()
+        else:
+            self.master.switch_page(Page3)
+
+
+class Page3(tk.Frame):  # 性別&姓名
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        global pic2
+        pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2.png')
+        img_lbl = tk.Label(self, image=pic2)
+        img_lbl.pack(side=tk.TOP)
+
+        # 主要widget
+        self.m_btn = tk.Button(self, text='生理男', font=('HanyiSentyTang', 35), bg='lavenderblush', fg='palevioletred',
+                               activebackground='lightblue', command=self.m_btn_click)
+        self.f_btn = tk.Button(self, text='生理女', font=('HanyiSentyTang', 35), bg='lavenderblush', fg='palevioletred',
+                               activebackground='lightsalmon', command=self.f_btn_click)
+        self.conf_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 30), bg='lavenderblush', fg='palevioletred',
+                                  command=self.record)
+
+        name_lbl = tk.Label(self, text='評測姓名', font=('HanyiSentyTang', 30), bg='palevioletred', fg='lavenderblush')
+        enddate_lbl = tk.Label(self, text='最後聊天日期', font=('HanyiSentyTang', 30), bg='palevioletred', fg='lavenderblush')
+
+        self.name_ent = tk.Entry(self, width=12, font=('HanyiSentyTang', 30), bg='white', justify=tk.CENTER)
+        self.enddate_ent = tk.Entry(self, width=10, font=('HanyiSentyTang', 24), bg='white')
+
+        self.m_btn.place(x=385, y=247, height=60)
+        self.f_btn.place(x=600, y=247, height=60)
+        self.conf_btn.place(x=520, y=430, height=45)
+
+        name_lbl.place(x=387, y=315, height=45)
+        enddate_lbl.place(x=387, y=370, height=45)
+
+        self.name_ent.place(x=548, y=315, height=45)
+        self.enddate_ent.place(x=621, y=370, height=45)
+
+        # 其他widget
+        g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=lambda: master.switch_page(Page2))
+        cont_btn = tk.Button(self, text='繼續', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
+                             activebackground='#FFD200', command=self.cont)
+        g_bk_btn.place(x=0, y=0, height=60)
+        cont_btn.place(x=690, y=543, height=60)
+
+    def m_btn_click(self):
+        if self.m_btn['bg'] == 'lavenderblush':
+            self.m_btn.configure(bg='lightblue', fg='black')
+        self.f_btn.configure(bg='lavenderblush', fg='palevioletred')
+
+    def f_btn_click(self):
+        if self.f_btn['bg'] == 'lavenderblush':
+            self.f_btn.configure(bg='lightsalmon', fg='black')
+        self.m_btn.configure(bg='lavenderblush', fg='palevioletred')
+
+    def record(self):  # 儲存性別/姓名/最後聊天日期
+        global gender
+        global name
+        global end_date
+        # 性別
+        if self.m_btn['bg'] != 'lavenderblush':
+            gender = 'M'
+        elif self.f_btn['bg'] != 'lavenderblush':
+            gender = 'F'
+        else:
+            reminder1 = tk.Tk()
+            reminder1.title('小提醒')
+            txt_lbl = tk.Label(reminder1, text='對方...是男是女?', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+            txt_lbl.pack()
+        # 姓名
+        name = self.name_ent.get()
+        if name == '':
+            reminder2 = tk.Tk()
+            reminder2.title('小提醒')
+            txt_lbl = tk.Label(reminder2, text='請提供對方的芳名', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+            txt_lbl.pack()
+            if self.name_ent['bg'] == 'palevioletred':
+                self.name_ent.configure(bg='white')
+        # 最後聊天日期
+        end_date = self.enddate_ent.get()
+        if len(end_date) != 10:
+            reminder3 = tk.Tk()
+            reminder3.title('小提醒')
+            txt1_lbl = tk.Label(reminder3, text='輸入格式為', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+            txt2_lbl = tk.Label(reminder3, text='YYYY/MM/DD', font=('Britannic Bold', 20), bg='lavenderblush', fg='palevioletred')
+            txt3_lbl = tk.Label(reminder3, text='Ex. 2021/01/01', font=('Britannic Bold', 20), justify=tk.LEFT,
+                                bg='lavenderblush', fg='palevioletred')
+
+            txt1_lbl.grid(row=0, column=0, sticky=tk.NE+tk.SW)
+            txt2_lbl.grid(row=0, column=1, sticky=tk.NE+tk.SW)
+            txt3_lbl.grid(row=1, column=0, columnspan=2, sticky=tk.NE+tk.SW)
+
+        if not(gender == '' or name == '' or end_date == ''):
+            self.conf_btn.configure(bg='palevioletred', fg='lavenderblush')
+
+    def cont(self):
+        if self.conf_btn['bg'] == 'lavenderblush':
+            reminder = tk.Tk()
+            reminder.title('小提醒')
+            txt_lbl = tk.Label(reminder, text='還有東西沒填喔!', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+            txt_lbl.pack()
+        else:
+            self.master.switch_page(Page4)
 
 
 class Page4(tk.Frame):  # 進度條
@@ -180,16 +246,14 @@ class Page4(tk.Frame):  # 進度條
         self.loading['value'] = 0  # 將初始值設定為0
         self.loading['maximum'] = self.max
         self.load_btn = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                         activebackground='#FFD200', command=self.progress)
+                         activebackground='#FFD200', command=self.calculate)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page3))
-        self.res_btn = tk.Button(self, text='結果', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
-                         activebackground='#FFD200', command=lambda: master.switch_page(Page5))
         self.loading.place(x=120, y=565)
         self.load_btn.place(x=310, y=500, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
 
-    def progress(self):  # 還不確定怎麼讓進度條跑完自己接下一頁
+    def progress(self):
         if self.cur_val < self.max:
             self.cur_val += 0.5
             self.loading['value'] = self.cur_val
@@ -201,11 +265,170 @@ class Page4(tk.Frame):  # 進度條
             new = Main2()
             new.mainloop()
 
+    def calculate(self):  # filepath, end_date, name
+        global amb, fake, real, file_path, end_date, name
+
+        records = []  # 完整聊天紀錄+統整時間格式
+        with open(file=file_path, mode="r", encoding="utf-8") as e:
+            for f in e:
+                f = f.strip("\n")
+                f_mod = f  # 修改用的變數
+                if f != '' and len(f) <= 14 and f.count('/') == 2:  # 該行為時間戳記
+                    mark = f.index('（')
+                    sep = f[:mark].split('/')
+                    if len(sep[1]) == 1 and len(sep[2]) == 1:
+                        f_mod = f[:5] + '0' + f[5:7] + '0' + f[7:]
+                    elif len(sep[1]) == 1 and len(sep[2]) != 1:
+                        f_mod = f[:5] + '0' + f[5:]
+                    elif len(sep[1]) != 1 and len(sep[2]) == 1:
+                        f_mod = f[:8] + '0' + f[8:]
+                f = f_mod
+                records.append(f)
+
+        chat = False  # 確認聊天紀錄最終日是否正確
+        for i in range(len(records)):
+            if records[i][:10].find(str(end_date)) != -1 and records[i - 1] == '':
+                chat = True
+                break
+
+        if not chat:
+            error = tk.Tk()
+            error.title('錯誤><')
+            txt_lbl = tk.Label(error, text="內個...你們那天沒聊天lah\n回前一頁檢查檢查吧~",
+                               justify=tk.LEFT, font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+            txt_lbl.pack()
+            # 做成txt label
+        else:
+            import datetime
+            end_date = datetime.datetime.strptime(end_date, '%Y/%m/%d')  # datetime形式的結束時間
+            delta = datetime.timedelta(days=90)
+
+            # 依照點擊之按鍵調整
+            if gender == 'M':
+                road_a = "C:\\Users\\User\\Desktop\\曖昧(男).txt"  # 關鍵字分數
+                road_r = "C:\\Users\\User\\Desktop\\真愛(男).txt"  # 關鍵字分數
+                road_f = "C:\\Users\\User\\Desktop\\渣渣(男).txt"  # 關鍵字分數
+            elif gender == 'F':
+                road_a = "C:\\Users\\User\\Desktop\\曖昧(女).txt"  # 關鍵字分數
+                road_r = "C:\\Users\\User\\Desktop\\真愛(女).txt"  # 關鍵字分數
+                road_f = "C:\\Users\\User\\Desktop\\渣渣(女).txt"  # 關鍵字分數
+
+            start = ""  # 初始句
+            for i in range(len(records)):
+                if len(records[i]) >= 10:
+                    if (records[i][0:4] == "2018") or (records[i][0:4] == "2019") or (records[i][0:4] == "2020") or (
+                            records[i][0:4] == "2021"):
+                        yminfor = records[i].split("/")
+                        dinfor = yminfor[2].split("（")
+                        year = int(yminfor[0])
+                        month = int(yminfor[1])
+                        day = int(dinfor[0])
+                        date = datetime.datetime(year, month, day)
+                        delta = end_date - date
+                        if delta.days <= 90:  # 評測紀錄為最後一次訊息三個月內
+                            start = i
+                            break
+            end = ""  # 最終句
+            for i in range(len(records)):
+                if len(records[i]) >= 10:
+                    if (records[i][0:4] == "2018") or (records[i][0:4] == "2019") or (records[i][0:4] == "2020") or (
+                            records[i][0:4] == "2021"):
+                        yminfor = records[i].split("/")
+                        dinfor = yminfor[2].split("（")
+                        year = int(yminfor[0])
+                        month = int(yminfor[1])
+                        day = int(dinfor[0])
+                        date = datetime.datetime(year, month, day)
+                        delta = date - end_date
+                        if delta.days > 0:
+                            end = i
+                            break
+
+            conversation = []  # 評測用的對話
+            if start == "" and end != "":
+                for i in range(0, end):
+                    conversation.append(records[i])
+            elif start != "" and end == "":
+                for i in range(start, len(records)):
+                    conversation.append(records[i])
+            elif start == "" and end == "":
+                for i in range(len(records)):
+                    conversation.append(records[i])
+            elif start != "" and end != "":
+                for i in range(start, end):
+                    conversation.append(records[i])
+
+            convo_target = []  # 僅保留評測對象的訊息紀錄
+            for i in range(len(conversation)):
+                if conversation[i].find('\t' + name + '\t') == 5:
+                    conversation[i] = conversation[i].split('\t')
+                    convo_target.append(conversation[i][2])
+
+            if not convo_target:
+                error = tk.Tk()
+                error.title('錯誤><')
+                txt_lbl = tk.Label(error, text='內個...你是不是把人家名字打錯了?\n莫非渣的是...你? 回前一頁檢查檢查吧~',
+                                   justify=tk.LEFT, font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
+                txt_lbl.pack()
+            else:
+
+                def get_dict(key_path):  # 把關鍵字轉成字典結構
+                    key_dict = dict()
+                    with open(file=key_path, mode="r", encoding='utf-8')as file:
+                        line = file.readline()
+                        while line:
+                            line = line.strip("\n")
+                            line2 = line.split(" ")
+                            key_dict[line2[0]] = line2[1]
+                            line = file.readline()
+                    return key_dict
+                # print (get_dict(road))
+
+                def score_one_line(aline, key_dict):  # 得到一行對話紀錄的分數
+                    score = 0
+                    for key, value in key_dict.items():
+                        # 找出現幾次關鍵字
+                        count = aline.count(key)
+                        value_float = float(value)
+                        score += count * value_float
+                    return score
+                    # print(key, value)
+                # print(score_one_line("等你", get_dict(road)))
+
+                def all_score(chat_record, key_dict):  # 整段對話的分數
+                    count_score = 0
+                    for item in chat_record:
+                        count_score += score_one_line(item, key_dict)
+                    return count_score
+                    # print(item)
+
+                def whole_score(chat_record, key_path):  # 計算主程式
+                    key_dict = get_dict(key_path)
+                    return all_score(chat_record, key_dict)
+
+                # 測試主程式
+                amb = round(whole_score(convo_target, road_a))
+                real = round(whole_score(convo_target, road_r))
+                fake = round(whole_score(convo_target, road_f))
+
+                # run progress bar
+                if not (amb == '' or real == '' or fake == ''):
+                    if self.cur_val < self.max:
+                        self.cur_val += 0.5
+                        self.loading['value'] = self.cur_val
+                        self.loading.update()
+                    if self.cur_val < self.max:
+                        self.after(10000, self.progress())
+                    else:
+                        self.master.destroy()
+                        new = Main2()
+                        new.mainloop()
+
 
 class Page5(tk.Frame):  # 曖昧分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic5
+        global pic5, amb
         pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
         img_lbl = tk.Label(self, image=pic5)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
@@ -216,13 +439,27 @@ class Page5(tk.Frame):  # 曖昧分數
         g_bk_btn.place(x=0, y=0, height=60)
         cont_btn.place(x=690, y=543, height=60)
 
-        #amg_lbl = tk.Label(self, text='53', font=('HanyiSentyTang', 65), bg='white', fg='#A60E27')
-        amg_lbl = tk.Label(self, text='547', font=('HanyiSentyTang', 65), bg='white', fg='#A60E27')
-        amg_lbl.place(x=200, y=200, height=60)
-        #comment1_lbl = tk.Label(self, text='「你可能真的想太多了，這應該\n 已經不是暈船，是暈航空母艦吧...」', justify=tk.LEFT, font=('HanyiSentyTang', 22), bg='#FFE1EC', fg='#A60E27')
-        #comment1_lbl.place(x=2, y=85, height=62)
-        comment2_lbl = tk.Label(self, text='「你們兩個已經曖昧到一個不行了，\n就差要不要捅破那層紗窗紙的\n一個決定了!」', justify=tk.LEFT, font=('HanyiSentyTang', 22), bg='#FFE1EC', fg='#A60E27')
-        comment2_lbl.place(x=8, y=72, height=95)
+        # 分數調整
+        if 1000 <= amb < 2000:
+            amb = round(amb/1.5)
+        elif 2000 <= amb <= 4000:
+            amb = round(amb/3)
+        elif amb >= 4000:
+            amb = round(amb/5.5)
+
+        # 建議
+        if amb < 300:
+            comment = '「你可能真的想太多了，這應該\n 已經不是暈船，是暈航空母艦吧...」'
+        elif 300 <= amb <= 650:
+            comment = '「喔喔喔喔喔好像有點什麼!\n 這應該不是錯覺喔~~~」'
+        else:
+            comment = '「你們兩個已經曖昧到一個不行了，\n 請原地給我在一起!」'
+
+        amb_lbl = tk.Label(self, text=str(amb), font=('HanyiSentyTang', 65), bg='white', fg='#A60E27')
+        amb_lbl.place(x=185, y=200, height=60)
+        comment_lbl = tk.Label(self, text=comment, justify=tk.LEFT, font=('HanyiSentyTang', 22), bg='#FFE1EC', fg='#A60E27')
+        comment_lbl.place(x=2, y=85, height=62)
+
 
 class Page6(tk.Frame): # 是否繼續測試渣或真愛
     def __init__(self, master):
@@ -245,7 +482,7 @@ class Page6(tk.Frame): # 是否繼續測試渣或真愛
         self.master.destroy()
         new = tk.Tk()
         new.resizable(0,0)
-        txt_lbl = tk.Label(new, text='祝你情場順利!', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200')
+        txt_lbl = tk.Label(new, text='祝你情場順利!', font=('HanyiSentyTang', 35), bg='palevioletred', fg='lavenderblush')
         txt_lbl.pack()
 
 
@@ -265,29 +502,29 @@ class Page7(tk.Frame):  # 姻緣簿
         self.create_entry()
 
     def create_entry(self):
-        Q1_lbl = tk.Label(self, text='認識時間', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
-        Q2_lbl = tk.Label(self, text='認識原因', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
-        Q3_lbl = tk.Label(self, text='聊天時長', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
-        Q4_lbl = tk.Label(self, text='聊天頻率', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
-        Q5_lbl = tk.Label(self, text='你覺得他\n有多喜歡你!', justify=tk.LEFT, font=('HanyiSentyTang', 20), bg='#FDFFF0', fg='#A60E27')
+        q1_lbl = tk.Label(self, text='認識時間', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        q2_lbl = tk.Label(self, text='認識原因', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        q3_lbl = tk.Label(self, text='聊天時長', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        q4_lbl = tk.Label(self, text='聊天頻率', font=('HanyiSentyTang', 30), bg='#FDFFF0', fg='#A60E27')
+        q5_lbl = tk.Label(self, text='你覺得他\n有多喜歡你!', justify=tk.LEFT, font=('HanyiSentyTang', 20), bg='#FDFFF0', fg='#A60E27')
 
-        Q1_lbl.place(x=330, y=110, height=35)
-        Q2_lbl.place(x=330, y=175, height=35)
-        Q3_lbl.place(x=330, y=243, height=35)
-        Q4_lbl.place(x=330, y=315, height=35)
-        Q5_lbl.place(x=330, y=370, height=55)
+        q1_lbl.place(x=330, y=110, height=35)
+        q2_lbl.place(x=330, y=175, height=35)
+        q3_lbl.place(x=330, y=243, height=35)
+        q4_lbl.place(x=330, y=315, height=35)
+        q5_lbl.place(x=330, y=370, height=55)
 
-        Q1_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
-        Q2_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
-        Q3_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
-        Q4_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
-        Q5_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        q1_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        q2_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        q3_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        q4_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
+        q5_ent = tk.Entry(self, width=13, bg='#FDFFF0', font=('HanyiSentyTang', 15))
 
-        Q1_ent.place(x=490, y=110, height=35)
-        Q2_ent.place(x=490, y=175, height=35)
-        Q3_ent.place(x=490, y=243, height=35)
-        Q4_ent.place(x=490, y=315, height=35)
-        Q5_ent.place(x=490, y=385, height=35)
+        q1_ent.place(x=490, y=110, height=35)
+        q2_ent.place(x=490, y=175, height=35)
+        q3_ent.place(x=490, y=243, height=35)
+        q4_ent.place(x=490, y=315, height=35)
+        q5_ent.place(x=490, y=385, height=35)
 
 
 class Page8(tk.Frame):  # 進度條
@@ -328,7 +565,7 @@ class Page8(tk.Frame):  # 進度條
 class Page9(tk.Frame):  # 真愛分數&渣分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic9
+        global pic9, real, fake
         pic9 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p9.png')
         img_lbl = tk.Label(self, image=pic9)
         cont_btn = tk.Button(self, text='行動小小建議', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
@@ -339,19 +576,24 @@ class Page9(tk.Frame):  # 真愛分數&渣分數
         cont_btn.place(x=525, y=543, height=60)
         g_bk_btn.place(x=0, y=0, height=60)
 
-        #fake_lbl = tk.Label(self, text='27', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
-        #real_lbl = tk.Label(self, text='39', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
-        fake_lbl = tk.Label(self, text='38', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
-        real_lbl = tk.Label(self, text='674', font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        # 調整分數
+        if 1000 <= real < 2000:
+            real = round(real/1.5)
+        elif 2000 <= real <= 4000:
+            real = round(real/3)
+        elif real >= 4000:
+            real = round(real/5.5)
+
+        fake_lbl = tk.Label(self, text=str(fake), font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
+        real_lbl = tk.Label(self, text=str(real), font=('HanyiSentyTang', 80), bg='white', fg='#A60E27')
         fake_lbl.place(x=175, y= 140, height=60)
         real_lbl.place(x=540, y=140, height=60)
-
 
 
 class Page10(tk.Frame):  # 行動建議
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic10
+        global pic10, fake, real
         pic10 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p10.png')
         img_lbl = tk.Label(self, image=pic10)
         end_btn = tk.Button(self, text='結束', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
@@ -359,19 +601,27 @@ class Page10(tk.Frame):  # 行動建議
         img_lbl.pack(side=tk.TOP)
         end_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
 
-        #comment1_lbl = tk.Label(self, text='ㄟ抖，你們這可能沒有曖昧，\n探測儀無法測出結果耶><', justify=tk.LEFT,
-                               #font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
-        #comment1_lbl.place(x=130, y=65, height=100)
-        comment2_lbl = tk.Label(self, text='對方也是很認真的面對這段感情耶，\n衝上去早告白一秒就可以早在一起ㄛ！', justify=tk.LEFT,
+        # 建議
+        if (real-fake) >= 400:
+            comment = '對方也是很認真的面對這段感情耶，\n早衝上去告白就可以早在一起喔！'
+        elif real <= fake or abs(fake-real) <= 200:
+            comment = '欸抖，你們這有點霧裡看花，\n探測儀無法明確測出結果耶><'
+        else:
+            comment='好像...嗅到了一點曖昧的味道，\n要不要試著再主動出擊一點?'
+
+        comment2_lbl = tk.Label(self, text=comment, justify=tk.CENTER,
                                font=('HanyiSentyTang', 32), bg='white', fg='#A60E27')
-        comment2_lbl.place(x=72, y=78, height=90)
+        comment2_lbl.place(x=75, y=78, height=90)
 
 
+file_path = str()  # 檔案位置
+name = str()       # 評測對象姓名
+end_date = str()   # 評測日期限制
+gender = str()     # 評測對象性別
+amb = int()        # 曖昧分數
+fake = int()       # 渣分數
+real = int()       # 真愛分數
 
-name = str()  # 評測姓名
-enddate = str()
 win = Main()
 win.resizable(0, 0)
-win.title('真愛評測儀')
-win.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
 win.mainloop()
