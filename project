@@ -71,6 +71,7 @@ class Page1(tk.Frame):  # 起始頁
         # 小注意事項!
         reminder = tk.Tk()
         reminder.resizable(0, 0)
+        reminder.geometry('+300+300')
         reminder.title('注意事項')
         reminder['bg'] = 'pink'
         txt_lbl = tk.Label(reminder, text='1. 本團隊因蒐集資料的時間有限，事前問卷大部分又都是由生理男、生理女的異性戀者所填答，\n　所以目前異性戀外或第三性別的使用者使用此測評儀時，效力可能較低。'
@@ -125,6 +126,8 @@ class Page2(tk.Frame):  # 上傳檔案
         if not file_path:
             error = tk.Tk()
             error.title('錯誤><')
+            error.resizable(0, 0)
+            error.geometry('+600+300')
             txt_lbl = tk.Label(error, text='聊天紀錄在哪裡~~~', font=('HanyiSentyTang', 25),
                                bg='lavenderblush', fg='palevioletred')
             txt_lbl.pack()
@@ -193,6 +196,8 @@ class Page3(tk.Frame):  # 性別&姓名
             gender = 'F'
         else:
             reminder1 = tk.Tk()
+            reminder1.resizable(0, 0)
+            reminder1.geometry('+600+300')
             reminder1.title('小提醒')
             txt_lbl = tk.Label(reminder1, text='對方...是男是女?', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
             txt_lbl.pack()
@@ -200,6 +205,8 @@ class Page3(tk.Frame):  # 性別&姓名
         name = self.name_ent.get()
         if name == '':
             reminder2 = tk.Tk()
+            reminder2.resizable(0, 0)
+            reminder2.geometry('+600+400')
             reminder2.title('小提醒')
             txt_lbl = tk.Label(reminder2, text='請提供對方的芳名', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
             txt_lbl.pack()
@@ -209,6 +216,8 @@ class Page3(tk.Frame):  # 性別&姓名
         end_date = self.enddate_ent.get()
         if len(end_date) != 10:
             reminder3 = tk.Tk()
+            reminder3.resizable(0, 0)
+            reminder3.geometry('+600+500')
             reminder3.title('小提醒')
             txt1_lbl = tk.Label(reminder3, text='輸入格式為', font=('HanyiSentyTang', 25), bg='lavenderblush', fg='palevioletred')
             txt2_lbl = tk.Label(reminder3, text='YYYY/MM/DD', font=('Britannic Bold', 20), bg='lavenderblush', fg='palevioletred')
@@ -263,17 +272,19 @@ class Page4(tk.Frame):  # 進度條
         else:
             self.master.destroy()
             new = Main2()
+            new.resizable(0, 0)
+            new.geometry('800x600+350+100')
             new.mainloop()
 
-    def calculate(self):  # filepath, end_date, name
+    def calculate(self):
         global amb, fake, real, file_path, end_date, name
-
+        # 曖昧分數、渣渣分數、真愛分數、檔案路徑、最後聊天日期、評測對象姓名
         records = []  # 完整聊天紀錄+統整時間格式
         with open(file=file_path, mode="r", encoding="utf-8") as e:
             for f in e:
                 f = f.strip("\n")
                 f_mod = f  # 修改用的變數
-                if f != '' and len(f) <= 14 and f.count('/') == 2:  # 該行為時間戳記
+                if f != '' and len(f) <= 14 and f.count('/') == 2:  # 該行紀錄為時間戳記
                     mark = f.index('（')
                     sep = f[:mark].split('/')
                     if len(sep[1]) == 1 and len(sep[2]) == 1:
@@ -331,8 +342,8 @@ class Page4(tk.Frame):  # 進度條
             end = ""  # 最終句
             for i in range(len(records)):
                 if len(records[i]) >= 10:
-                    if (records[i][0:4] == "2018") or (records[i][0:4] == "2019") or (records[i][0:4] == "2020") or (
-                            records[i][0:4] == "2021"):
+                    if (records[i][0:4] == "2018") or (records[i][0:4] == "2019") or (records[i][0:4] == "2020") or \
+                            (records[i][0:4] == "2021"):
                         yminfor = records[i].split("/")
                         dinfor = yminfor[2].split("（")
                         year = int(yminfor[0])
@@ -407,9 +418,9 @@ class Page4(tk.Frame):  # 進度條
                     return all_score(chat_record, key_dict)
 
                 # 測試主程式
-                amb = round(whole_score(convo_target, road_a))
-                real = round(whole_score(convo_target, road_r))
-                fake = round(whole_score(convo_target, road_f))
+                amb = round(whole_score(convo_target, road_a))   # 曖昧分數
+                real = round(whole_score(convo_target, road_r))  # 真愛分數
+                fake = round(whole_score(convo_target, road_f))  # 渣渣分數
 
                 # run progress bar
                 if not (amb == '' or real == '' or fake == ''):
@@ -422,6 +433,8 @@ class Page4(tk.Frame):  # 進度條
                     else:
                         self.master.destroy()
                         new = Main2()
+                        new.resizable(0, 0)
+                        new.geometry('800x600+350+100')
                         new.mainloop()
 
 
@@ -482,6 +495,7 @@ class Page6(tk.Frame): # 是否繼續測試渣或真愛
         self.master.destroy()
         new = tk.Tk()
         new.resizable(0,0)
+        new.geometry('+600+400')
         txt_lbl = tk.Label(new, text='祝你情場順利!', font=('HanyiSentyTang', 35), bg='palevioletred', fg='lavenderblush')
         txt_lbl.pack()
 
@@ -559,6 +573,8 @@ class Page8(tk.Frame):  # 進度條
         else:
             self.master.destroy()
             new = Main3()
+            new.resizable(0, 0)
+            new.geometry('800x600+350+100')
             new.mainloop()
 
 
@@ -599,7 +615,7 @@ class Page10(tk.Frame):  # 行動建議
         end_btn = tk.Button(self, text='結束', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=self.master.destroy)
         img_lbl.pack(side=tk.TOP)
-        end_btn.pack(side=tk.BOTTOM, fill=tk.BOTH)
+        end_btn.place(x=690, y=543, height=60)
 
         # 建議
         if (real-fake) >= 400:
@@ -611,7 +627,7 @@ class Page10(tk.Frame):  # 行動建議
 
         comment2_lbl = tk.Label(self, text=comment, justify=tk.CENTER,
                                font=('HanyiSentyTang', 32), bg='white', fg='#A60E27')
-        comment2_lbl.place(x=75, y=78, height=90)
+        comment2_lbl.place(x=100, y=78, height=90)
 
 
 file_path = str()  # 檔案位置
@@ -624,4 +640,5 @@ real = int()       # 真愛分數
 
 win = Main()
 win.resizable(0, 0)
+win.geometry('800x600+350+100')
 win.mainloop()
