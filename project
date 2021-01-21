@@ -8,7 +8,7 @@ class Main(tk.Tk):
         tk.Tk.__init__(self)
         self.init_frame = None
         self.title('真愛評測儀')
-        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\heart.png'))
         self.switch_page(Page1)
 
     def switch_page(self, frame_cls):
@@ -24,7 +24,7 @@ class Main2(tk.Tk):
         tk.Tk.__init__(self)
         self.init_frame = None
         self.title('真愛評測儀')
-        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\heart.png'))
         self.switch_page(Page5)
 
     def switch_page(self, frame_cls):
@@ -40,7 +40,7 @@ class Main3(tk.Tk):
         tk.Tk.__init__(self)
         self.init_frame = None
         self.title('真愛評測儀')
-        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\heart.png'))
+        self.iconphoto(False, tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\heart.png'))
         self.switch_page(Page9)
 
     def switch_page(self, frame_cls):
@@ -56,7 +56,7 @@ class Page1(tk.Frame):  # 起始頁
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic1
-        pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p1完整.png')
+        pic1 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p1完整.png')
         img_lbl = tk.Label(self, image=pic1)
         start_btn = tk.Button(self, text='開始評測', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                           activebackground='#FFD200', command=lambda: master.switch_page(Page2))
@@ -86,9 +86,9 @@ class Page1(tk.Frame):  # 起始頁
 class Page2(tk.Frame):  # 上傳檔案
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic3
-        pic3 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p3.png')
-        img_lbl = tk.Label(self, image=pic3)
+        global pic2
+        pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p3.png')
+        img_lbl = tk.Label(self, image=pic2)
         file_up_btn = tk.Button(self, text='上傳聊天文檔', font=('HanyiSentyTang', 35), bg='#A60E27',
                                 fg='#FFD200', activebackground='#FFD200', command=self.file_up_click)
         cont_btn = tk.Button(self, text='確認', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
@@ -99,7 +99,7 @@ class Page2(tk.Frame):  # 上傳檔案
         pr2 = tk.Label(self, text='的聊天', font=('HanyiSentyTang', 35), bg='white', fg='#A60E27')
         self.file_lbl = tk.Label(self, text='評測對象',font=('HanyiSentyTang', 24), bg='white')
 
-        self.file_lbl.place(x=103, y=170)
+        self.file_lbl.place(x=95, y=170)
         img_lbl.pack(side=tk.TOP)
         file_up_btn.place(x=0, y=543, height=60)
         cont_btn.place(x=690, y=543, height=60)
@@ -119,7 +119,15 @@ class Page2(tk.Frame):  # 上傳檔案
 
     def print_path(self, text):
         if self.file_lbl['text']:
-            self.file_lbl['text'] = text
+            if len(text) <= 7:
+                self.file_lbl['text'] = text
+                self.file_lbl.place(x=(95+(4-len(text))*13), y=170)
+            else:
+                mark = round(len(text)/2)
+                text = text[:mark] + '\n' + text[mark:]
+                self.file_lbl['text'] = text
+                self.file_lbl['font'] = ('HanyiSentyTang', 22)
+                self.file_lbl.place(x=(98 + (4 - len(text)//2) * 11), y=160, height=65)
             self.file_lbl.update()
 
     def cont(self):
@@ -138,9 +146,9 @@ class Page2(tk.Frame):  # 上傳檔案
 class Page3(tk.Frame):  # 性別&姓名
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        global pic2
-        pic2 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p2.png')
-        img_lbl = tk.Label(self, image=pic2)
+        global pic3
+        pic3 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p2.png')
+        img_lbl = tk.Label(self, image=pic3)
         img_lbl.pack(side=tk.TOP)
 
         # 主要widget
@@ -245,7 +253,7 @@ class Page4(tk.Frame):  # 進度條
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic4
-        pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p4&8.png')
+        pic4 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p4&8.png')
         img_lbl = tk.Label(self, image=pic4)
         img_lbl.pack(side=tk.TOP)
         # 進度條
@@ -284,6 +292,7 @@ class Page4(tk.Frame):  # 進度條
             for f in e:
                 f = f.strip("\n")
                 f_mod = f  # 修改用的變數
+                # 統整android時間格式
                 if f != '' and len(f) <= 14 and f.count('/') == 2:  # 該行紀錄為時間戳記
                     mark = f.index('（')
                     sep = f[:mark].split('/')
@@ -316,13 +325,13 @@ class Page4(tk.Frame):  # 進度條
 
             # 依照點擊之按鍵調整
             if gender == 'M':
-                road_a = "C:\\Users\\User\\Desktop\\曖昧(男).txt"  # 關鍵字分數
-                road_r = "C:\\Users\\User\\Desktop\\真愛(男).txt"  # 關鍵字分數
-                road_f = "C:\\Users\\User\\Desktop\\渣渣(男).txt"  # 關鍵字分數
+                road_a = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\曖昧(男).txt"  # 關鍵字分數
+                road_r = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\真愛(男).txt"  # 關鍵字分數
+                road_f = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\渣渣(男).txt"  # 關鍵字分數
             elif gender == 'F':
-                road_a = "C:\\Users\\User\\Desktop\\曖昧(女).txt"  # 關鍵字分數
-                road_r = "C:\\Users\\User\\Desktop\\真愛(女).txt"  # 關鍵字分數
-                road_f = "C:\\Users\\User\\Desktop\\渣渣(女).txt"  # 關鍵字分數
+                road_a = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\曖昧(女).txt"  # 關鍵字分數
+                road_r = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\真愛(女).txt"  # 關鍵字分數
+                road_f = "C:\\Users\\User\\Desktop\\商管程式設計\\final project\\渣渣(女).txt"  # 關鍵字分數
 
             start = ""  # 初始句
             for i in range(len(records)):
@@ -442,7 +451,7 @@ class Page5(tk.Frame):  # 曖昧分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic5, amb
-        pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\p5.png')
+        pic5 = tk.PhotoImage(file = 'C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p5.png')
         img_lbl = tk.Label(self, image=pic5)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page3))
@@ -478,7 +487,7 @@ class Page6(tk.Frame): # 是否繼續測試渣或真愛
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic6
-        pic6 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p6.png')
+        pic6 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p6.png')
         img_lbl = tk.Label(self, image=pic6)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page5))
@@ -504,7 +513,7 @@ class Page7(tk.Frame):  # 姻緣簿
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic7
-        pic7 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p7.png')
+        pic7 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p7.png')
         img_lbl = tk.Label(self, image=pic7)
         g_bk_btn = tk.Button(self, text='返回', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page6))
@@ -545,7 +554,7 @@ class Page8(tk.Frame):  # 進度條
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic8
-        pic8 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p4&8.png')
+        pic8 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p4&8.png')
         img_lbl = tk.Label(self, image=pic8)
         img_lbl.pack(side=tk.TOP)
 
@@ -582,7 +591,7 @@ class Page9(tk.Frame):  # 真愛分數&渣分數
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic9, real, fake
-        pic9 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p9.png')
+        pic9 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p9.png')
         img_lbl = tk.Label(self, image=pic9)
         cont_btn = tk.Button(self, text='行動小小建議', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=lambda: master.switch_page(Page10))
@@ -610,7 +619,7 @@ class Page10(tk.Frame):  # 行動建議
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         global pic10, fake, real
-        pic10 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\p10.png')
+        pic10 = tk.PhotoImage(file='C:\\Users\\User\\Desktop\\商管程式設計\\final project\\p10.png')
         img_lbl = tk.Label(self, image=pic10)
         end_btn = tk.Button(self, text='結束', font=('HanyiSentyTang', 35), bg='#A60E27', fg='#FFD200',
                              activebackground='#FFD200', command=self.master.destroy)
